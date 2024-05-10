@@ -10,10 +10,7 @@ namespace UnityToolkit
     {
         private readonly HashSet<string> _assemblyNames = [
             "UniTask",
-            "UniTask.Addressables",
-            "UniTask.DOTween",
             "UniTask.Linq",
-            "UniTask.TextMeshPro",
             "Unity.Collections"
         ];
         private readonly HashSet<Assembly> _assembliesInMemory = [];
