@@ -11,10 +11,18 @@ namespace UnityToolkit
         {
             string directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string uniTaskAssemblyPath = Path.Combine(directory, "UniTask.dll");
+            string uniTaskAddressablesAssemblyPath = Path.Combine(directory, "UniTask.Addressables.dll");
+            string uniTaskDOTweenAssemblyPath = Path.Combine(directory, "UniTask.DOTween.dll");
+            string uniTaskLinqAssemblyPath = Path.Combine(directory, "UniTask.Linq.dll");
+            string uniTaskTextMeshProAssemblyPath = Path.Combine(directory, "UniTask.TextMeshPro.dll");
             string unityCollectionsAssemblyPath = Path.Combine(directory, "Unity.Collections.dll");
 
             // Load assemblies into memory
             Assembly.Load(uniTaskAssemblyPath);
+            Assembly.Load(uniTaskAddressablesAssemblyPath);
+            Assembly.Load(uniTaskDOTweenAssemblyPath);
+            Assembly.Load(uniTaskLinqAssemblyPath);
+            Assembly.Load(uniTaskTextMeshProAssemblyPath);
             Assembly.Load(unityCollectionsAssemblyPath);
 
             // How to use this library:
