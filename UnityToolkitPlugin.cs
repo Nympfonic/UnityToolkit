@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace UniTaskLibrary
+namespace UnityToolkit
 {
     [BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.0.0")]
     public class UnityToolkitPlugin : BaseUnityPlugin
