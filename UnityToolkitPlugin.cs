@@ -31,7 +31,7 @@ namespace UnityToolkit
         // How to use this library:
         // 1. Download the latest release
         // 2. Copy the assemblies **EXCEPT** the UnityToolkit.dll from the release zip to where you store your project's assembly references
-        // 3. Add the UniTask.dll and Unity.Collections.dll as assembly references to your project
+        // 3. Add the assemblies as assembly references to your project
         // 4. Add [BepInDependency("com.Arys.UnityToolkit")] attribute to your plugin class
         // 5. You can now use UniTask and Unity.Collections in your mod
 
