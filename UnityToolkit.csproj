@@ -31,6 +31,9 @@
     <Reference Include="UniTask">
       <HintPath>References\UniTask.dll</HintPath>
     </Reference>
+    <Reference Include="UniTask.Linq">
+      <HintPath>References\UniTask.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Collections">
       <HintPath>References\Unity.Collections.dll</HintPath>
     </Reference>
