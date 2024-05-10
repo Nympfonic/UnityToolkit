@@ -18,9 +18,11 @@ namespace UnityToolkit
             Assembly.Load(unityCollectionsAssemblyPath);
 
             // How to use this library:
-            // 1. Add [BepInDependency("com.Arys.UnityToolkit")] attribute to your plugin class
-            // 2. Add the UniTask.dll and Unity.Collections.dll as assembly references to your project
-            // 3. You can now use UniTask and Unity Collections in your mod
+            // 1. Download the latest release
+            // 2. Copy the assemblies from the release zip to where you store your project's assembly references
+            // 3. Add the UniTask.dll and Unity.Collections.dll as assembly references to your project
+            // 4. Add [BepInDependency("com.Arys.UnityToolkit")] attribute to your plugin class
+            // 5. You can now use UniTask and Unity Collections in your mod
 
             // What is this library for?
             // This library aims to provide additional tools to client modders which will (hopefully) allow them to write more optimised code
