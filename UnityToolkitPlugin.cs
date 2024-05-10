@@ -19,10 +19,10 @@ namespace UnityToolkit
 
             // How to use this library:
             // 1. Download the latest release
-            // 2. Copy the assemblies from the release zip to where you store your project's assembly references
+            // 2. Copy the assemblies **EXCEPT** the UnityToolkit.dll from the release zip to where you store your project's assembly references
             // 3. Add the UniTask.dll and Unity.Collections.dll as assembly references to your project
             // 4. Add [BepInDependency("com.Arys.UnityToolkit")] attribute to your plugin class
-            // 5. You can now use UniTask and Unity Collections in your mod
+            // 5. You can now use UniTask and Unity.Collections in your mod
 
             // What is this library for?
             // This library aims to provide additional tools to client modders which will (hopefully) allow them to write more optimised code
@@ -35,7 +35,7 @@ namespace UnityToolkit
             //    It is also possible to replace Unity Coroutine usage, which has poor performance and higher memory allocation, with UniTask instead.
             //    Documentation: https://github.com/Cysharp/UniTask
             //
-            // 2. Unity Collections is included in this library for the additional NativeContainer types it provides
+            // 2. Unity.Collections is included in this library for the additional NativeContainer types it provides
             //    such as NativeList, NativeHashMap, NativeMultiHashMap, and NativeQueue.
             //    These are useful data types when you are working with Unity's Job system as they are thread-safe.
             //    Documentation: https://docs.unity3d.com/Packages/com.unity.collections@0.9/manual/index.html
