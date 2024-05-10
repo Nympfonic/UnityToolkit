@@ -1,15 +1,15 @@
 # UnityToolkit
 
+## What is this library for?
+
+This library aims to provide additional tools to client modders which will (hopefully) allow them to write more optimised code
+and reduce the performance cost and memory allocation of their code even further.
+
 ## How to use this library:
 
 1. Add `[BepInDependency("com.Arys.UnityToolkit")]` attribute to your plugin class
 2. Add the `UniTask.dll` and `Unity.Collections.dll` as assembly references to your project
 3. You can now use UniTask and Unity Collections in your mod
-
-## What is this library for?
-
-This library aims to provide additional tools to client modders which will (hopefully) allow them to write more optimised code
-and reduce the performance cost and memory allocation of their code even further
 
 ## What features does this library provide?
 
