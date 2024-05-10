@@ -16,6 +16,7 @@ namespace UnityToolkit
             "UniTask.TextMeshPro",
             "Unity.Collections"
         ];
+        private readonly HashSet<Assembly> _assembliesInMemory = [];
 
         public UnityToolkitPlugin()
         {
@@ -25,7 +26,8 @@ namespace UnityToolkit
             foreach (var assemblyName in _assemblyNames)
             {
                 string assemblyPath = Path.Combine(directory, $"{assemblyName}.dll");
-                Assembly.Load(assemblyPath);
+                var assembly = Assembly.Load(assemblyPath);
+                _assembliesInMemory.Add(assembly);
             }
         }
 
