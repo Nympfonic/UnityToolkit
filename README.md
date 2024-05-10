@@ -14,14 +14,13 @@ and reduce the performance cost and memory allocation of their code even further
 ## What features does this library provide?
 
 1. UniTask is a near zero-allocating, performant version of C# Tasks that's suited for Unity than the standard C# implementation.
-   It doesn't use threads or `SynchronizationContext`/`ExecutionContext` so the result is faster performance and lower allocation
-   while matching Unity threading (single-thread).
-   It is also possible to replace Unity Coroutine usage, which has poor performance and higher memory allocation, with UniTask instead.
-   Documentation: https://github.com/Cysharp/UniTask
-2. Unity Collections is included in this library for the additional `NativeContainer` types it provides
-   such as `NativeList`, `NativeHashMap`, `NativeMultiHashMap`, and `NativeQueue`.
-   These are useful data types when you are working with Unity's Job system as they are thread-safe.
-   Documentation: https://docs.unity3d.com/Packages/com.unity.collections@0.9/manual/index.html
+   - It doesn't use threads or `SynchronizationContext`/`ExecutionContext` so the result is faster performance and lower allocation
+   - while matching Unity threading (single-thread).
+   - It is also possible to replace Unity Coroutine usage, which has poor performance and higher memory allocation, with UniTask instead.
+   - Documentation: https://github.com/Cysharp/UniTask
+2. Unity Collections is included in this library for the additional `NativeContainer` types it provides such as `NativeList`, `NativeHashMap`, `NativeMultiHashMap`, and `NativeQueue`.
+   - These are useful data types when you are working with Unity's Job system as they are thread-safe.
+   - Documentation: https://docs.unity3d.com/Packages/com.unity.collections@0.9/manual/index.html
 
 ## Is it safe?
 
