@@ -8,10 +8,12 @@ namespace UnityToolkit
     [BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.0.0")]
     public class UnityToolkitPlugin : BaseUnityPlugin
     {
-        private readonly HashSet<string> _assemblyNames = [
-            "UniTask",
-            "UniTask.Linq",
-            "Unity.Collections"
+        private readonly HashSet<string> _assemblyFileNames = [
+            "UniTask.dll",
+            "UniTask.Linq.dll",
+            "UniTask.DOTween.dll",
+            "UniTask.TextMeshPro.dll",
+            "Unity.Collections.dll"
         ];
         private readonly HashSet<Assembly> _assembliesInMemory = [];
 
@@ -20,10 +22,11 @@ namespace UnityToolkit
             string directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             // Load assemblies into memory
-            foreach (var assemblyName in _assemblyNames)
+            foreach (var assemblyFileName in _assemblyFileNames)
             {
-                string assemblyPath = Path.Combine(directory, $"{assemblyName}.dll");
-                var assembly = Assembly.Load(assemblyPath);
+                string assemblyPath = Path.Combine(directory, assemblyFileName);
+                var assemblyName = AssemblyName.GetAssemblyName(assemblyPath);
+                var assembly = Assembly.Load(assemblyName);
                 _assembliesInMemory.Add(assembly);
             }
         }
