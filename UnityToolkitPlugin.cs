@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace UnityToolkit
 {
-    [BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.0.0")]
+    [BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.0.1")]
     public class UnityToolkitPlugin : BaseUnityPlugin
     {
         private readonly HashSet<string> _assemblyFileNames = [

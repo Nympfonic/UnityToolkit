@@ -5,7 +5,7 @@
     <TargetFramework>net471</TargetFramework>
     <AssemblyName>UnityToolkit</AssemblyName>
     <Description>A library for SPT client modders</Description>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
