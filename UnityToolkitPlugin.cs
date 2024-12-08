@@ -10,7 +10,7 @@ namespace UnityToolkit;
 [BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.0.2")]
 public class UnityToolkitPlugin : BaseUnityPlugin
 {
-	private readonly HashSet<string> _assemblyFileNames = new()
+	private readonly List<string> _assemblyFileNames = new()
 	{
 		"UniTask.dll",
 		"UniTask.Linq.dll",
@@ -18,7 +18,7 @@ public class UnityToolkitPlugin : BaseUnityPlugin
 		"UniTask.TextMeshPro.dll",
 		"Unity.Collections.dll"
 	};
-	private readonly HashSet<Assembly> _assembliesInMemory = new();
+	private readonly List<Assembly> _assembliesInMemory = new();
 
 	private void Awake()
 	{
