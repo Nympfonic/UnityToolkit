@@ -1,7 +1,9 @@
 ﻿using BepInEx;
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using UnityEngine.LowLevel;
 
 namespace UnityToolkit;
 
@@ -30,5 +32,8 @@ public class UnityToolkitPlugin : BaseUnityPlugin
 			Assembly assembly = Assembly.Load(assemblyName);
 			_assembliesInMemory.Add(assembly);
 		}
+		
+		PlayerLoopSystem playerLoop = PlayerLoop.GetCurrentPlayerLoop();
+		PlayerLoopHelper.Initialize(ref playerLoop);
 	}
 }
