@@ -7,18 +7,18 @@ using UnityEngine.LowLevel;
 
 namespace UnityToolkit;
 
-[BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.0.2")]
+[BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.1.0")]
 public class UnityToolkitPlugin : BaseUnityPlugin
 {
-	private readonly List<string> _assemblyFileNames = new()
-	{
+	private readonly List<string> _assemblyFileNames =
+	[
 		"UniTask.dll",
 		"UniTask.Linq.dll",
 		"UniTask.DOTween.dll",
 		"UniTask.TextMeshPro.dll",
 		"Unity.Collections.dll"
-	};
-	private readonly List<Assembly> _assembliesInMemory = new();
+	];
+	private readonly List<Assembly> _assembliesInMemory = [];
 
 	private void Awake()
 	{
