@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using System;
 
-namespace UnityToolkit.Utils;
+namespace UnityToolkit.Structures;
 
 /// <summary>A closure struct, which can be managed manually compared to C#'s implicit closure.</summary>
 /// <typeparam name="TContext">The external data type to be passed into the closure.</typeparam>
