@@ -13,11 +13,13 @@ public class UnityToolkitPlugin : BaseUnityPlugin
 {
 	private readonly List<string> _assemblyFileNames =
 	[
+		"UniTask.Addressables.dll",
 		"UniTask.dll",
 		"UniTask.Linq.dll",
 		"UniTask.DOTween.dll",
 		"UniTask.TextMeshPro.dll",
-		"Unity.Collections.dll"
+		"Unity.Collections.dll",
+		"ZString.dll"
 	];
 	
 	[UsedImplicitly] private readonly List<Assembly> _assembliesLoaded = [];

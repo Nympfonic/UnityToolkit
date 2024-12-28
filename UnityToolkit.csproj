@@ -7,6 +7,10 @@
     <Version>1.1.0</Version>
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Authors>Arys</Authors>
+    <Copyright>Arys</Copyright>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,8 +23,14 @@
     <Reference Include="BepInEx">
       <HintPath>..\..\SPT Assembly Refs\310x\BepInEx.dll</HintPath>
     </Reference>
+    <Reference Include="System.Memory">
+      <HintPath>..\..\SPT Assembly Refs\310x\System.Memory.dll</HintPath>
+    </Reference>
     <Reference Include="UniTask">
       <HintPath>References\UniTask.dll</HintPath>
+    </Reference>
+    <Reference Include="UniTask.Addressables">
+      <HintPath>References\UniTask.Addressables.dll</HintPath>
     </Reference>
     <Reference Include="UniTask.DOTween">
       <HintPath>References\UniTask.DOTween.dll</HintPath>
@@ -44,4 +54,8 @@
       <HintPath>References\ZString.dll</HintPath>
     </Reference>
   </ItemGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;E:\SPT-3.10\BepInEx\plugins\UnityToolkit\$(TargetName).dll&quot;&#xA;copy &quot;$(TargetDir)UniTask.Addressables.dll&quot; &quot;E:\SPT-3.10\BepInEx\plugins\UnityToolkit\UniTask.Addressables.dll&quot;&#xA;copy &quot;$(TargetDir)UniTask.dll&quot; &quot;E:\SPT-3.10\BepInEx\plugins\UnityToolkit\UniTask.dll&quot;&#xA;copy &quot;$(TargetDir)UniTask.DOTween.dll&quot; &quot;E:\SPT-3.10\BepInEx\plugins\UnityToolkit\UniTask.DOTween.dll&quot;&#xA;copy &quot;$(TargetDir)UniTask.Linq.dll&quot; &quot;E:\SPT-3.10\BepInEx\plugins\UnityToolkit\UniTask.Linq.dll&quot;&#xA;copy &quot;$(TargetDir)UniTask.TextMeshPro.dll&quot; &quot;E:\SPT-3.10\BepInEx\plugins\UnityToolkit\UniTask.TextMeshPro.dll&quot;&#xA;copy &quot;$(TargetDir)Unity.Collections.dll&quot; &quot;E:\SPT-3.10\BepInEx\plugins\UnityToolkit\Unity.Collections.dll&quot;&#xA;copy &quot;$(TargetDir)ZString.dll&quot; &quot;E:\SPT-3.10\BepInEx\plugins\UnityToolkit\ZString.dll&quot;&#xA;&#xA;if &quot;$(ConfigurationName)&quot;==&quot;Debug&quot; (&#xA;    if exist &quot;$(TargetDir)$(TargetName).pdb&quot; (&#xA;        copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;E:\SPT-3.10\BepInEx\plugins\UnityToolkit\$(TargetName).pdb&quot;&#xA;    ) else (&#xA;        echo Debug symbols not found!&#xA;    )&#xA;) else (&#xA;    if exist &quot;E:\SPT-3.10\BepInEx\plugins\UnityToolkit\$(TargetName).pdb&quot; (&#xA;        del &quot;E:\SPT-3.10\BepInEx\plugins\UnityToolkit\$(TargetName).pdb&quot;&#xA;    )&#xA;)" />
+  </Target>
 </Project>
