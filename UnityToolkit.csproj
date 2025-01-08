@@ -20,17 +20,29 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>E:\SPT-3.10\BepInEx\core\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>E:\SPT-3.10\EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
     <Reference Include="BepInEx">
-      <HintPath>..\..\SPT Assembly Refs\310x\BepInEx.dll</HintPath>
+      <HintPath>E:\SPT-3.10\BepInEx\core\BepInEx.dll</HintPath>
+    </Reference>
+    <Reference Include="spt-reflection">
+      <HintPath>E:\SPT-3.10\BepInEx\plugins\spt\spt-reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>References\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Memory">
-      <HintPath>..\..\SPT Assembly Refs\310x\System.Memory.dll</HintPath>
+      <HintPath>References\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>References\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="UniTask">
       <HintPath>References\UniTask.dll</HintPath>
-    </Reference>
-    <Reference Include="UniTask.Addressables">
-      <HintPath>References\UniTask.Addressables.dll</HintPath>
     </Reference>
     <Reference Include="UniTask.DOTween">
       <HintPath>References\UniTask.DOTween.dll</HintPath>
