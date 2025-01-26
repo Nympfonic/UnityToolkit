@@ -9,51 +9,54 @@ public enum ObjectPoolType
 	DiscardNewest
 }
 
+public interface IObjectPool<T>
+{
+	T Get();
+	void Return(T obj);
+}
+
+/// <summary>
+/// A thread-safe object pool pattern.
+/// </summary>
+/// <param name="maxPoolSize">The maximum pool size. If set to zero, the pool can expand to max integer size.</param>
+/// <param name="poolType">The pool type based on <see cref="ObjectPoolType"/>.</param>
+/// <typeparam name="T">The type to store in the pool.</typeparam>
 [UsedImplicitly]
-public class ObjectPool<T>
+public class ObjectPool<T>(int maxPoolSize = 0, ObjectPoolType poolType = ObjectPoolType.DiscardNewest) : IObjectPool<T>
 	where T : new()
 {
-	private readonly int _maxPoolSize;
-	private readonly ObjectPoolType _poolType;
-	private readonly ConcurrentQueue<T> _objectPool = [];
+	private readonly ConcurrentBag<T> _pool = [];
 	private int _count;
-
-	public ObjectPool(int maxPoolSize, ObjectPoolType poolType = ObjectPoolType.DiscardNewest)
+	
+	public T Get()
 	{
-		_maxPoolSize = maxPoolSize;
-		_poolType = poolType;
-	}
-
-	public void AddToPool(T obj)
-	{
-		if (_count + 1 <= _maxPoolSize)
+		if (_count == 0)
 		{
-			_objectPool.Enqueue(obj);
+			return new T();
+		}
+		
+		if (_pool.TryTake(out T obj))
+		{
+			_count--;
+		}
+		
+		return obj;
+	}
+	
+	public void Return(T obj)
+	{
+		if (maxPoolSize == 0 || _count + 1 <= maxPoolSize)
+		{
+			_pool.Add(obj);
 			_count++;
 			return;
 		}
-
-		if (_poolType == ObjectPoolType.DiscardOldest && _objectPool.TryDequeue(out T _))
+		
+		if (poolType == ObjectPoolType.DiscardOldest && _pool.TryTake(out _))
 		{
 			_count--;
-			_objectPool.Enqueue(obj);
+			_pool.Add(obj);
 			_count++;
 		}
-	}
-
-	public T TakeFromPool()
-	{
-		T obj = default;
-		if (_count == 0)
-		{
-			return obj;
-		}
-
-		if (_objectPool.TryDequeue(out obj))
-		{
-			_count--;
-		}
-
-		return obj;
 	}
 }
