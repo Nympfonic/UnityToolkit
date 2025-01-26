@@ -7,7 +7,7 @@ using UnityToolkit.Utils;
 
 namespace UnityToolkit;
 
-[BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.1.0")]
+[BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.1.1")]
 public class UnityToolkitPlugin : BaseUnityPlugin
 {
 	private readonly List<string> _assemblyFileNames =
