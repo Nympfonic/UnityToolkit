@@ -13,7 +13,8 @@ namespace UnityToolkit.Structures;
 public interface IProcessor<TProcessor, in TData>
 {
 	TProcessor SetNext(TProcessor nextProcessor);
-	bool Process(TData data);
+	void Process(TData data);
+	bool TryProcess(TData data);
 }
 
 /// <summary><inheritdoc cref="IProcessor{TProcessor,TData}"/></summary>
@@ -26,7 +27,8 @@ public interface IProcessor<TProcessor, in TData>
 public interface IAsyncProcessor<TProcessor, in TData>
 {
 	TProcessor SetNext(TProcessor nextProcessor);
-	UniTask<bool> ProcessAsync(TData data);
+	UniTask ProcessAsync(TData data);
+	UniTask<bool> TryProcessAsync(TData data);
 }
 
 [UsedImplicitly]
@@ -36,9 +38,11 @@ public abstract class ProcessorBase<TData> : IProcessor<ProcessorBase<TData>, TD
 	
 	public ProcessorBase<TData> SetNext(ProcessorBase<TData> nextProcessor) => _nextProcessor = nextProcessor;
 	
-	public virtual bool Process(TData data)
+	public virtual void Process(TData data) => _nextProcessor?.Process(data);
+	
+	public virtual bool TryProcess(TData data)
 	{
-		return _nextProcessor == null || _nextProcessor.Process(data);
+		return _nextProcessor == null || _nextProcessor.TryProcess(data);
 	}
 }
 
@@ -49,8 +53,18 @@ public abstract class AsyncProcessorBase<TData> : IAsyncProcessor<AsyncProcessor
 	
 	public AsyncProcessorBase<TData> SetNext(AsyncProcessorBase<TData> nextProcessor) => _nextProcessor = nextProcessor;
 	
-	public virtual async UniTask<bool> ProcessAsync(TData data)
+	public virtual async UniTask ProcessAsync(TData data)
 	{
-		return _nextProcessor == null || await _nextProcessor.ProcessAsync(data);
+		if (_nextProcessor == null)
+		{
+			return;
+		}
+		
+		await _nextProcessor.ProcessAsync(data);
+	}
+	
+	public virtual async UniTask<bool> TryProcessAsync(TData data)
+	{
+		return _nextProcessor == null || await _nextProcessor.TryProcessAsync(data);
 	}
 }
