@@ -19,11 +19,16 @@ and reduce the performance cost and memory allocation of their code even further
    - It doesn't use threads or `SynchronizationContext`/`ExecutionContext` so the result is faster performance and lower allocation while matching Unity threading (single-thread).
    - It is also possible to replace Unity Coroutine usage, which has poor performance and higher memory allocation, with UniTask instead.
    - Documentation: https://github.com/Cysharp/UniTask
-2. Unity.Collections is included in this library for the additional `NativeContainer` types it provides
-   - `NativeList`, `NativeHashMap`, `NativeMultiHashMap`, and `NativeQueue`: these are useful data types when you are working with Unity's Job system as they are thread-safe.
+2. Unity.Collections is included in this library for the additional `NativeContainer` types it provides.
+   - `NativeList`, `NativeHashMap`, `NativeMultiHashMap`, and `NativeQueue`: these are useful data types when you are working with Unity's Jobs system as they are thread-safe.
    - Documentation: https://docs.unity3d.com/Packages/com.unity.collections@0.9/manual/index.html
+3. Useful Unity-related extension methods for types such as `UnityEngine.Object` and `Vector3`.
+4. Generic structures/design patterns which can be adapted to any type.
+   - `Processor.cs` (Chain of Responsibility pattern)
+   - `ObjectPool.cs`
+   - `Closure.cs` (struct)
 
 ## Is it safe?
 
-Yes, both assemblies are just compiled versions of their original git repo
-I've also included a VirusTotal scan of both on the GitHub releases page
+Yes, all assemblies are just compiled versions of their original git repo
+I've also included a VirusTotal scan of all assemblies on the GitHub releases page

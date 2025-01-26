@@ -3,20 +3,22 @@ using System;
 
 namespace UnityToolkit.Structures;
 
-/// <summary>A closure struct, which can be managed manually compared to C#'s implicit closure.</summary>
+/// <summary>
+/// A closure struct, which can be managed manually compared to C#'s implicit closure.
+/// </summary>
 /// <typeparam name="TContext">The external data type to be passed into the closure.</typeparam>
 [UsedImplicitly]
 public struct Closure<TContext>
 {
 	private Delegate _delegate;
 	private TContext _context;
-
+	
 	public Closure(Delegate @delegate, TContext context = default)
 	{
 		_delegate = @delegate;
 		_context = context;
 	}
-
+	
 	public void Invoke()
 	{
 		switch (_delegate)
@@ -31,7 +33,7 @@ public struct Closure<TContext>
 				throw new InvalidOperationException("Unsupported delegate type for Invoke.");
 		}
 	}
-
+	
 	public TResult Invoke<TResult>()
 	{
 		return _delegate switch
@@ -41,7 +43,7 @@ public struct Closure<TContext>
 			_ => throw new InvalidOperationException("Unsupported delegate type for Invoke<TResult>.")
 		};
 	}
-
+	
 	public void Set(Delegate @delegate, TContext context)
 	{
 		_delegate = @delegate;
