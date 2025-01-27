@@ -7,7 +7,7 @@ using UnityToolkit.Utils;
 
 namespace UnityToolkit;
 
-[BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.1.1")]
+[BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.2.0")]
 public class UnityToolkitPlugin : BaseUnityPlugin
 {
 	private readonly List<string> _assemblyFileNames =
@@ -17,8 +17,7 @@ public class UnityToolkitPlugin : BaseUnityPlugin
 		"UniTask.DOTween.dll",
 		"UniTask.TextMeshPro.dll",
 		"Unity.Collections.dll",
-		// TODO: ZString has dependencies on newer versions of System.Runtime.CompilerServices.Unsafe.dll, System.Buffer.dll, and System.Memory.dll
-		// May potentially cause issues
+		// ZString has dependencies on newer versions of System.Runtime.CompilerServices.Unsafe.dll, System.Buffer.dll, and System.Memory.dll
 		"ZString.dll"
 	];
 	
