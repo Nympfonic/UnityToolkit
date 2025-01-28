@@ -3,32 +3,24 @@ using JetBrains.Annotations;
 
 namespace UnityToolkit.Structures;
 
-/// <summary>
-/// Interface for Chain of Responsibility (COR) pattern.
-/// </summary>
-/// <typeparam name="TProcessor">The processor type.</typeparam>
-/// <typeparam name="TData">The data needed for the processor.</typeparam>
-/// <remarks>All processors should be derived from this interface or <see cref="ProcessorBase{TData}"/>.</remarks>
-/// <seealso cref="IAsyncProcessor{TProcessor,TData}"/>
-public interface IProcessor<TProcessor, in TData>
+internal interface IProcessor<TProcessor, in TData>
 {
 	TProcessor SetNext(TProcessor nextProcessor);
 	bool Process(TData data);
 }
 
-/// <summary><inheritdoc cref="IProcessor{TProcessor,TData}"/></summary>
-/// <typeparam name="TProcessor">The processor type.</typeparam>
-/// <typeparam name="TData">The data needed for the processor.</typeparam>
-/// <remarks>
-/// All async processors should be derived from this interface or <see cref="AsyncProcessorBase{TData}"/>.
-/// </remarks>
-/// <seealso cref="IProcessor{TProcessor,TData}"/>
-public interface IAsyncProcessor<TProcessor, in TData>
+internal interface IAsyncProcessor<TProcessor, in TData>
 {
 	TProcessor SetNext(TProcessor nextProcessor);
 	UniTask<bool> ProcessAsync(TData data);
 }
 
+/// <summary>
+/// Chain of Responsibility (COR) pattern. Allows you to create a chain of processors to process data while being modular.
+/// </summary>
+/// <typeparam name="TData">The data needed for the processor.</typeparam>
+/// <remarks>All processors should be derived from this class.</remarks>
+/// <seealso cref="AsyncProcessorBase{TData}"/>
 [UsedImplicitly]
 public abstract class ProcessorBase<TData> : IProcessor<ProcessorBase<TData>, TData>
 {
@@ -42,6 +34,10 @@ public abstract class ProcessorBase<TData> : IProcessor<ProcessorBase<TData>, TD
 	}
 }
 
+/// <summary><inheritdoc cref="ProcessorBase{TData}"/></summary>
+/// <typeparam name="TData"><inheritdoc cref="ProcessorBase{TData}"/></typeparam>
+/// <remarks>All async processors should be derived from this class.</remarks>
+/// <seealso cref="ProcessorBase{TData}"/>
 [UsedImplicitly]
 public abstract class AsyncProcessorBase<TData> : IAsyncProcessor<AsyncProcessorBase<TData>, TData>
 {
