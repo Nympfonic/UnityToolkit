@@ -7,6 +7,9 @@ using UnityToolkit.Utils;
 
 namespace UnityToolkit;
 
+/// <summary>
+/// Entry point for UnityToolkit mod framework.
+/// </summary>
 [BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.2.0")]
 public class UnityToolkitPlugin : BaseUnityPlugin
 {
@@ -22,12 +25,12 @@ public class UnityToolkitPlugin : BaseUnityPlugin
 	];
 	
 	[UsedImplicitly] private readonly List<Assembly> _assembliesLoaded = [];
-
+	
 	private void Awake()
 	{
-		Assembly currentAssembly = Assembly.GetExecutingAssembly();
+		var currentAssembly = Assembly.GetExecutingAssembly();
 		string directory = Path.GetDirectoryName(currentAssembly.Location)!;
-
+		
 		// Load assemblies into memory
 		foreach (string assemblyFileName in _assemblyFileNames)
 		{

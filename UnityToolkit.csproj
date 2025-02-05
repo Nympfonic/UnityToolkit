@@ -4,13 +4,14 @@
     <TargetFramework>net471</TargetFramework>
     <AssemblyName>UnityToolkit</AssemblyName>
     <Description>A library for SPT client modders</Description>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Authors>Arys</Authors>
     <Copyright>Arys</Copyright>
-    <AssemblyVersion>1.1.0</AssemblyVersion>
-    <FileVersion>1.1.0</FileVersion>
+    <AssemblyVersion>1.2.0</AssemblyVersion>
+    <FileVersion>1.2.0</FileVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +29,9 @@
     </Reference>
     <Reference Include="BepInEx">
       <HintPath>E:\SPT-3.10\BepInEx\core\BepInEx.dll</HintPath>
+    </Reference>
+    <Reference Include="Comfort">
+      <HintPath>E:\SPT-3.10\EscapeFromTarkov_Data\Managed\Comfort.dll</HintPath>
     </Reference>
     <Reference Include="spt-reflection">
       <HintPath>E:\SPT-3.10\BepInEx\plugins\spt\spt-reflection.dll</HintPath>
