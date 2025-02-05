@@ -8,6 +8,8 @@ using UnityEngine.LowLevel;
 
 namespace UnityToolkit.Patches;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 /// <summary>
 /// This patch is required to inject UniTask's PlayerLoopSystems after Tarkov has injected its custom PlayerLoopSystems.
 /// </summary>

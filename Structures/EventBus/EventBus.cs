@@ -15,16 +15,31 @@ public interface IEvent;
 [UsedImplicitly]
 public static class EventBus
 {
+	/// <summary>
+	/// Raises an event.
+	/// </summary>
+	/// <param name="event">The event to raise.</param>
+	/// <typeparam name="T">The event type.</typeparam>
 	public static void Raise<T>(T @event) where T : IEvent
 	{
 		EventBus<T>.Raise(@event);
 	}
 	
+	/// <summary>
+	/// Registers an event binding.
+	/// </summary>
+	/// <param name="binding">The binding to register.</param>
+	/// <typeparam name="T">The event type.</typeparam>
 	public static void Register<T>(EventBinding<T> binding) where T : IEvent
 	{
 		EventBus<T>.Register(binding);
 	}
 	
+	/// <summary>
+	/// Deregisters an event binding.
+	/// </summary>
+	/// <param name="binding">The binding to deregister.</param>
+	/// <typeparam name="T">The event type.</typeparam>
 	public static void Deregister<T>(EventBinding<T> binding) where T : IEvent
 	{
 		EventBus<T>.Deregister(binding);
@@ -42,9 +57,22 @@ public static class EventBus<T> where T : IEvent
 	private static readonly Queue<IEventBinding<T>> _bindingsToRemove = [];
 	private static readonly HashSet<IEventBinding<T>> _bindings = [];
 	
+	/// <summary>
+	/// Registers an event binding.
+	/// </summary>
+	/// <param name="binding">The binding to register.</param>
 	public static void Register(EventBinding<T> binding) => _bindingsToAdd.Enqueue(binding);
+	
+	/// <summary>
+	/// Deregisters an event binding.
+	/// </summary>
+	/// <param name="binding">The binding to deregister.</param>
 	public static void Deregister(EventBinding<T> binding) => _bindingsToRemove.Enqueue(binding);
-
+	
+	/// <summary>
+	/// Raises an event.
+	/// </summary>
+	/// <param name="event">The event to raise.</param>
 	public static void Raise(T @event)
 	{
 		RemoveBindings();
@@ -56,7 +84,10 @@ public static class EventBus<T> where T : IEvent
 			binding.OnEventNoArgs.Invoke();
 		}
 	}
-
+	
+	/// <summary>
+	/// Clears all bindings.
+	/// </summary>
 	public static void Clear()
 	{
 		_bindingsToAdd.Clear();

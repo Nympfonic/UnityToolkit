@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace UnityToolkit.Extensions;
 
+/// <summary>
+/// Extensions for Unity's MonoBehaviour
+/// </summary>
 public static class MonoBehaviourExtensions
 {
 	/// <summary>Allows null-coalescing operators to be used with Unity's <see cref="UnityEngine.Object"/>.</summary>
@@ -14,7 +17,7 @@ public static class MonoBehaviourExtensions
 	[UsedImplicitly]
 	[CanBeNull]
 	public static TObject OrNull<TObject>(this TObject self) where TObject : Object => self ? self : null;
-
+	
 	/// <summary>Gets the full path of the transform in the scene hierarchy.</summary>
 	/// <seealso cref="GetPathNonAlloc"/>
 	/// <remarks>This allocates memory due to string concatenation.</remarks>
@@ -29,7 +32,7 @@ public static class MonoBehaviourExtensions
 		
 		return transform.parent.GetPath(delimiter) + delimiter + transform.name;
 	}
-
+	
 	/// <summary><inheritdoc cref="GetPath"/></summary>
 	/// <remarks>Very low memory allocation due to usage of <see cref="ZString"/>.</remarks>
 	[UsedImplicitly]
@@ -44,7 +47,7 @@ public static class MonoBehaviourExtensions
 			transform = transform.parent;
 		}
 		stringBuilder.Insert(0, transform.name);
-
+		
 		return stringBuilder.ToString();
 	}
 }
