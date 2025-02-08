@@ -30,9 +30,6 @@
     <Reference Include="BepInEx">
       <HintPath>E:\SPT-3.10\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
-    <Reference Include="Comfort">
-      <HintPath>E:\SPT-3.10\EscapeFromTarkov_Data\Managed\Comfort.dll</HintPath>
-    </Reference>
     <Reference Include="spt-reflection">
       <HintPath>E:\SPT-3.10\BepInEx\plugins\spt\spt-reflection.dll</HintPath>
     </Reference>
