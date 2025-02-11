@@ -1,5 +1,6 @@
 ﻿using Cysharp.Text;
 using JetBrains.Annotations;
+using System.Text;
 using UnityEngine;
 
 namespace UnityToolkit.Extensions;
@@ -19,7 +20,6 @@ public static class MonoBehaviourExtensions
 	public static TObject OrNull<TObject>(this TObject self) where TObject : Object => self ? self : null;
 	
 	/// <summary>Gets the full path of the transform in the scene hierarchy.</summary>
-	/// <seealso cref="GetPathNonAlloc"/>
 	/// <remarks>This allocates memory due to string concatenation.</remarks>
 	[UsedImplicitly]
 	[NotNull]
@@ -31,23 +31,5 @@ public static class MonoBehaviourExtensions
 		}
 		
 		return transform.parent.GetPath(delimiter) + delimiter + transform.name;
-	}
-	
-	/// <summary><inheritdoc cref="GetPath"/></summary>
-	/// <remarks>Very low memory allocation due to usage of <see cref="ZString"/>.</remarks>
-	[UsedImplicitly]
-	[NotNull]
-	public static string GetPathNonAlloc(this Transform transform, string delimiter = "/")
-	{
-		using Utf16ValueStringBuilder stringBuilder = ZString.CreateStringBuilder();
-		while (transform.parent)
-		{
-			stringBuilder.Insert(0, transform.name);
-			stringBuilder.Insert(0, delimiter);
-			transform = transform.parent;
-		}
-		stringBuilder.Insert(0, transform.name);
-		
-		return stringBuilder.ToString();
 	}
 }
