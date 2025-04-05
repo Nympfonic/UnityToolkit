@@ -19,10 +19,14 @@ public class DisablePatchAttribute : Attribute;
 public class ModulePatchManager
 {
 	private readonly List<ModulePatch> _patches = [];
-
-	public ModulePatchManager(Assembly currentAssembly)
+	
+	/// <summary>
+	/// Creates an instance of the patch manager, targeting a particular assembly to get all of its <see cref="ModulePatch"/>es.
+	/// </summary>
+	/// <param name="targetAssembly">The assembly to look through for <see cref="ModulePatch"/>es.</param>
+	public ModulePatchManager(Assembly targetAssembly)
 	{
-		foreach (Type type in currentAssembly.GetTypes())
+		foreach (Type type in targetAssembly.GetTypes())
 		{
 			if (type.BaseType == typeof(ModulePatch) &&
 				type.GetCustomAttribute(typeof(DisablePatchAttribute)) == null)

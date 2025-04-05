@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityToolkit", "UnityToolkit.csproj", "{C36D0C27-A025-43E5-B4F2-DFC0B17410C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityToolkit", "project\UnityToolkit\UnityToolkit.csproj", "{C36D0C27-A025-43E5-B4F2-DFC0B17410C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityToolkit.Prepatcher", "project\UnityToolkit.Prepatcher\UnityToolkit.Prepatcher.csproj", "{B876D9D8-DF82-45DC-8B32-92BA269A8190}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C36D0C27-A025-43E5-B4F2-DFC0B17410C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C36D0C27-A025-43E5-B4F2-DFC0B17410C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C36D0C27-A025-43E5-B4F2-DFC0B17410C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B876D9D8-DF82-45DC-8B32-92BA269A8190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B876D9D8-DF82-45DC-8B32-92BA269A8190}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B876D9D8-DF82-45DC-8B32-92BA269A8190}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B876D9D8-DF82-45DC-8B32-92BA269A8190}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

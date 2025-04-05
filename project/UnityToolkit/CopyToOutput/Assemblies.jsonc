@@ -1,0 +1,10 @@
+[
+  "System.Memory.dll", // Must be first for other assemblies below that depend on it
+  "UniTask.dll",
+  "UniTask.Linq.dll",
+  "UniTask.Addressables.dll",
+  "UniTask.DOTween.dll",
+  "UniTask.TextMeshPro.dll",
+  "Unity.Collections.dll",
+  "ZString.dll"
+]

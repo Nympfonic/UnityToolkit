@@ -398,6 +398,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-References/
-/.idea/*
-/.idea/
+project/**/References/
+project/**/CopyToOutput/*.dll
+.idea/

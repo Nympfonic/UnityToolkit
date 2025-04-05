@@ -1,0 +1,78 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>UnityToolkit</AssemblyName>
+    <Description>A mod framework for SPT client modders</Description>
+    <Version>1.3.0</Version>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Authors>Arys</Authors>
+    <Copyright>Arys</Copyright>
+    <AssemblyVersion>1.3.0</AssemblyVersion>
+    <FileVersion>1.3.0</FileVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <CopyToOutputDir>$(ProjectDir)CopyToOutput</CopyToOutputDir>
+    <TarkovDir Condition=" '$(TarkovDir)' == '' ">E:\SPT-3.11\</TarkovDir>
+    <TarkovBepInExPluginsDir>$(TarkovDir)BepInEx\plugins\</TarkovBepInExPluginsDir>
+    <TarkovBepInExPatchersDir>$(TarkovDir)BepInEx\patchers\</TarkovBepInExPatchersDir>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="References\**" />
+    <EmbeddedResource Remove="References\**" />
+    <None Remove="References\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(TarkovDir)BepInEx\core\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(TarkovDir)EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx">
+      <HintPath>$(TarkovDir)BepInEx\core\BepInEx.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(TarkovDir)EscapeFromTarkov_Data\Managed\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="spt-reflection">
+      <HintPath>$(TarkovBepInExPluginsDir)spt\spt-reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory">
+      <HintPath>References\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="UniTask">
+      <HintPath>References\UniTask.dll</HintPath>
+    </Reference>
+    <Reference Include="UniTask.DOTween">
+      <HintPath>References\UniTask.DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="UniTask.Linq">
+      <HintPath>References\UniTask.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="UniTask.TextMeshPro">
+      <HintPath>References\UniTask.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Collections">
+      <HintPath>References\Unity.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(TarkovDir)EscapeFromTarkov_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(TarkovDir)EscapeFromTarkov_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="ZString">
+      <HintPath>References\ZString.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if not exist &quot;$(TarkovBepInExPluginsDir)UnityToolkit&quot; (&#xA;    mkdir &quot;$(TarkovBepInExPluginsDir)UnityToolkit&quot;&#xA;)&#xA;&#xA;copy &quot;$(TargetPath)&quot; &quot;$(TarkovBepInExPluginsDir)UnityToolkit\$(TargetFileName)&quot;&#xA;copy &quot;$(ProjectDir)References\*.dll&quot; &quot;$(TarkovBepInExPluginsDir)UnityToolkit&quot;&#xA;xcopy /y &quot;$(CopyToOutputDir)&quot; &quot;$(TarkovBepInExPluginsDir)UnityToolkit&quot;&#xA;&#xA;if &quot;$(ConfigurationName)&quot;==&quot;Debug&quot; (&#xA;    if exist &quot;$(TargetDir)$(TargetName).pdb&quot; (&#xA;        copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(TarkovBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot;&#xA;    ) else (&#xA;        echo Debug symbols not found!&#xA;    )&#xA;) else (&#xA;    if exist &quot;$(TarkovBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot; (&#xA;        del &quot;$(TarkovBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot;&#xA;    )&#xA;)" />
+  </Target>
+</Project>
