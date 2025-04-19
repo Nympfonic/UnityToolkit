@@ -399,5 +399,6 @@ FodyWeavers.xsd
 *.sln.iml
 
 project/**/References/
+project/**/build/
 project/**/CopyToOutput/*.dll
 .idea/
