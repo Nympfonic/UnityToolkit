@@ -69,19 +69,19 @@
   
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>$(SptDir)BepInEx\core\0Harmony.dll</HintPath>
+      <HintPath>$(SptSharedAssembliesDir)$(SptVersion)\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>$(SptDir)EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(SptSharedAssembliesDir)$(SptVersion)\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
-      <HintPath>$(SptDir)BepInEx\core\BepInEx.dll</HintPath>
+      <HintPath>$(SptSharedAssembliesDir)$(SptVersion)\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>$(SptDir)EscapeFromTarkov_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      <HintPath>$(SptSharedAssembliesDir)$(SptVersion)\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="spt-reflection">
-      <HintPath>$(SptBepInExPluginsDir)spt\spt-reflection.dll</HintPath>
+      <HintPath>$(SptSharedAssembliesDir)$(SptVersion)\spt-reflection.dll</HintPath>
     </Reference>
     <Reference Include="System.Memory">
       <HintPath>References\System.Memory.dll</HintPath>
@@ -102,10 +102,10 @@
       <HintPath>References\Unity.Collections.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>$(SptDir)EscapeFromTarkov_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>$(SptSharedAssembliesDir)$(SptVersion)\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(SptDir)EscapeFromTarkov_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(SptSharedAssembliesDir)$(SptVersion)\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="ZString">
       <HintPath>References\ZString.dll</HintPath>
