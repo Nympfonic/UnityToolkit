@@ -12,13 +12,53 @@
     <AssemblyVersion>1.3.0</AssemblyVersion>
     <FileVersion>1.3.0</FileVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Configurations>Debug;Release;SPT-3.10 Release;SPT-3.11 Release</Configurations>
+    <Platforms>AnyCPU</Platforms>
+  </PropertyGroup>
+  
+  <!-- ONLY MODIFY THIS SECTION -->
+  <PropertyGroup>
+    <!-- Your SPT path -->
+    <SptDir>E:\SPT-3.11\</SptDir>
+    
+    <!--
+      This is the path to where all your different SPT versions' assemblies are stored
+      For example, my SPT Assemblies folder is laid out like so:
+        SPT Assemblies
+        ↳ 38x
+          ↳ ..
+          ↳ Assembly-CSharp.dll
+        ↳ 39x
+        ↳ 310x
+        ↳ 311x
+    -->
+    <SptSharedAssembliesDir>..\..\..\..\SPT Assemblies\</SptSharedAssembliesDir>
+    
+    <!--
+      The SPT version to target.
+      This is used to find the corresponding SPT version's assembles in <SptSharedAssembliesDir>
+      The value here is mostly a fallback value if you do not have a build configuration set up yet
+    -->
+    <SptVersion Condition=" '$(SptVersion)' == '' ">311x</SptVersion>
   </PropertyGroup>
   
   <PropertyGroup>
-    <CopyToOutputDir>$(ProjectDir)CopyToOutput</CopyToOutputDir>
-    <TarkovDir Condition=" '$(TarkovDir)' == '' ">E:\SPT-3.11\</TarkovDir>
-    <TarkovBepInExPluginsDir>$(TarkovDir)BepInEx\plugins\</TarkovBepInExPluginsDir>
-    <TarkovBepInExPatchersDir>$(TarkovDir)BepInEx\patchers\</TarkovBepInExPatchersDir>
+    <CopyToOutputDir>$(MSBuildThisFileDirectory)CopyToOutput</CopyToOutputDir>
+    <SptBepInExPluginsDir>$(SptDir)BepInEx\plugins\</SptBepInExPluginsDir>
+    <SptBepInExPatchersDir>$(SptDir)BepInEx\patchers\</SptBepInExPatchersDir>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SPT-3.10 Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>build\SPT-3.10\</OutputPath>
+    <TargetFramework>net471</TargetFramework>
+    <SptVersion>310x</SptVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SPT-3.11 Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>build\SPT-3.11\</OutputPath>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <SptVersion>311x</SptVersion>
   </PropertyGroup>
   
   <ItemGroup>
@@ -29,19 +69,19 @@
   
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>$(TarkovDir)BepInEx\core\0Harmony.dll</HintPath>
+      <HintPath>$(SptDir)BepInEx\core\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>$(TarkovDir)EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(SptDir)EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
-      <HintPath>$(TarkovDir)BepInEx\core\BepInEx.dll</HintPath>
+      <HintPath>$(SptDir)BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>$(TarkovDir)EscapeFromTarkov_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      <HintPath>$(SptDir)EscapeFromTarkov_Data\Managed\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="spt-reflection">
-      <HintPath>$(TarkovBepInExPluginsDir)spt\spt-reflection.dll</HintPath>
+      <HintPath>$(SptBepInExPluginsDir)spt\spt-reflection.dll</HintPath>
     </Reference>
     <Reference Include="System.Memory">
       <HintPath>References\System.Memory.dll</HintPath>
@@ -62,10 +102,10 @@
       <HintPath>References\Unity.Collections.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>$(TarkovDir)EscapeFromTarkov_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>$(SptDir)EscapeFromTarkov_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(TarkovDir)EscapeFromTarkov_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(SptDir)EscapeFromTarkov_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="ZString">
       <HintPath>References\ZString.dll</HintPath>
@@ -73,6 +113,6 @@
   </ItemGroup>
   
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if not exist &quot;$(TarkovBepInExPluginsDir)UnityToolkit&quot; (&#xA;    mkdir &quot;$(TarkovBepInExPluginsDir)UnityToolkit&quot;&#xA;)&#xA;&#xA;copy &quot;$(TargetPath)&quot; &quot;$(TarkovBepInExPluginsDir)UnityToolkit\$(TargetFileName)&quot;&#xA;copy &quot;$(ProjectDir)References\*.dll&quot; &quot;$(TarkovBepInExPluginsDir)UnityToolkit&quot;&#xA;xcopy /y &quot;$(CopyToOutputDir)&quot; &quot;$(TarkovBepInExPluginsDir)UnityToolkit&quot;&#xA;&#xA;if &quot;$(ConfigurationName)&quot;==&quot;Debug&quot; (&#xA;    if exist &quot;$(TargetDir)$(TargetName).pdb&quot; (&#xA;        copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(TarkovBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot;&#xA;    ) else (&#xA;        echo Debug symbols not found!&#xA;    )&#xA;) else (&#xA;    if exist &quot;$(TarkovBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot; (&#xA;        del &quot;$(TarkovBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot;&#xA;    )&#xA;)" />
+    <Exec Command="if not exist &quot;$(SptBepInExPluginsDir)UnityToolkit&quot; (&#xA;    mkdir &quot;$(SptBepInExPluginsDir)UnityToolkit&quot;&#xA;)&#xA;&#xA;copy &quot;$(TargetPath)&quot; &quot;$(SptBepInExPluginsDir)UnityToolkit\$(TargetFileName)&quot;&#xA;copy &quot;$(ProjectDir)References\*.dll&quot; &quot;$(SptBepInExPluginsDir)UnityToolkit&quot;&#xA;xcopy /y &quot;$(CopyToOutputDir)&quot; &quot;$(SptBepInExPluginsDir)UnityToolkit&quot;&#xA;&#xA;if &quot;$(ConfigurationName)&quot;==&quot;Debug&quot; (&#xA;    if exist &quot;$(TargetDir)$(TargetName).pdb&quot; (&#xA;        copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(SptBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot;&#xA;    ) else (&#xA;        echo Debug symbols not found!&#xA;    )&#xA;) else (&#xA;    if exist &quot;$(SptBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot; (&#xA;        del &quot;$(SptBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot;&#xA;    )&#xA;)" />
   </Target>
 </Project>
