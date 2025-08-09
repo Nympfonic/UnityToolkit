@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using BepInEx.Logging;
+using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,16 +27,21 @@ namespace UnityToolkit.Prepatcher
 		
 		public static void Initialize()
 		{
-			if (!File.Exists(s_assemblyPath)) return;
+			if (!File.Exists(s_assemblyPath))
+			{
+				return;
+			}
+			
+			ManualLogSource logger = Logger.CreateLogSource("UnityToolkit-Prepatcher");
 			
 			try
 			{
-				Console.WriteLine($"[UnityToolkit-Prepatcher] Loading new version of assembly '{ASSEMBLY_NAME}' from {s_assemblyPath}");
+				logger.LogInfo($"Loading new version of assembly '{ASSEMBLY_NAME}' from {s_assemblyPath}");
 				s_assemblyDefinition = AssemblyDefinition.ReadAssembly(s_assemblyPath);
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine($"[UnityToolkit-Prepatcher] Failed to load assembly '{ASSEMBLY_NAME}' from {s_assemblyPath}:\n{ex.StackTrace}");
+				logger.LogError($"Failed to load assembly '{ASSEMBLY_NAME}' from {s_assemblyPath}:\n{ex.StackTrace}");
 			}
 		}
 		
