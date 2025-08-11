@@ -6,5 +6,6 @@
   "UniTask.DOTween.dll",
   "UniTask.TextMeshPro.dll",
   "Unity.Collections.dll",
-  "ZString.dll"
+  "ZString.dll",
+  "VContainer.dll"
 ]

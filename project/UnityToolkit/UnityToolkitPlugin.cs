@@ -4,7 +4,10 @@ using Cysharp.Text;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using UnityEngine;
 using UnityToolkit.Utils;
+using VContainer;
+using VContainer.Unity;
 
 namespace UnityToolkit;
 
@@ -25,6 +28,7 @@ public class UnityToolkitPlugin : BaseUnityPlugin
 		new ModulePatchManager(currentAssembly).EnableAllPatches();
 		
 		TestZStringLog(Logger);
+		TestVContainer();
 	}
 	
 	[Conditional("DEBUG")]
@@ -34,5 +38,31 @@ public class UnityToolkitPlugin : BaseUnityPlugin
 		sb.AppendLine("This is a test string to verify ZString works.");
 		sb.AppendFormat("{0} is the answer to life!", 42);
 		logger.LogInfo(sb.ToString());
+	}
+	
+	[Conditional("DEBUG")]
+	private static void TestVContainer()
+	{
+		var scope = new GameObject().AddComponent<TestLifetimeScope>();
+		scope.autoRun = true;
+		scope.Build();
+	}
+}
+
+internal class TestLifetimeScope : LifetimeScope
+{
+	protected override void Configure(IContainerBuilder builder)
+	{
+		builder.Register(_ => BepInEx.Logging.Logger.CreateLogSource("UnityToolkit-Test"), Lifetime.Singleton);
+		builder.RegisterEntryPoint<HelloWorldService>();
+	}
+}
+
+[method: Inject]
+internal class HelloWorldService(ManualLogSource logger) : IStartable
+{
+	void IStartable.Start()
+	{
+		logger.LogInfo("Hello world! This message means that VContainer was successfully initialized.");
 	}
 }

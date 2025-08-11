@@ -107,6 +107,9 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(SptSharedAssembliesDir)$(SptVersion)\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="VContainer">
+      <HintPath>References\VContainer.dll</HintPath>
+    </Reference>
     <Reference Include="ZString">
       <HintPath>References\ZString.dll</HintPath>
     </Reference>
