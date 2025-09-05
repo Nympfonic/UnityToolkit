@@ -8,11 +8,16 @@ namespace UnityToolkit.Architectures.EventBus;
 /// <summary>
 /// Used to initialize event buses automatically based on the target assembly.
 /// </summary>
-public class EventBusInitializer(Assembly assembly)
+public sealed class EventBusInitializer(Assembly assembly) : IDisposable
 {
 	private readonly IReadOnlyList<Type> _eventTypes = GetEventTypesFromAssembly(assembly);
 	private Type[] _eventBusTypes;
 	private MethodInfo[] _eventBusClearMethods;
+	
+	void IDisposable.Dispose()
+	{
+		ClearAllBuses();
+	}
 	
 	/// <summary>
 	/// Initializes all event buses based on the types in <see cref="_eventTypes"/>.
