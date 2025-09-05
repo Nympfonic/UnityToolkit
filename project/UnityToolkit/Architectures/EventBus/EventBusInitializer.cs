@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace UnityToolkit.Structures.EventBus;
+namespace UnityToolkit.Architectures.EventBus;
 
 /// <summary>
 /// Used to initialize event buses automatically based on the target assembly.

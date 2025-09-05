@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using System;
 
-namespace UnityToolkit.Structures;
+namespace UnityToolkit.Architectures;
 
 /// <summary>
 /// A closure struct, which can be managed manually compared to C#'s implicit closure.

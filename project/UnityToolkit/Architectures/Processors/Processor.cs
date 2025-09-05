@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace UnityToolkit.Structures;
+namespace UnityToolkit.Architectures.Processors;
 
 internal interface IProcessor<TProcessor, in TData>
 {

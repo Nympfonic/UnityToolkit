@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using System;
 
-namespace UnityToolkit.Structures.EventBus;
+namespace UnityToolkit.Architectures.EventBus;
 
 internal interface IEventBinding<T>
 {

@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections.Generic;
 
-namespace UnityToolkit.Structures.EventBus;
+namespace UnityToolkit.Architectures.EventBus;
 
 /// <summary>
 /// Event types must derive from this interface.
