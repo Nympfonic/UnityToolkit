@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
+using UnityToolkit.Patches;
 using UnityToolkit.Utils;
 using VContainer;
 using VContainer.Unity;
@@ -25,7 +26,7 @@ public class UnityToolkitPlugin : BaseUnityPlugin
 		
 		AssemblyLoader.LoadAssemblies(directory, Logger);
 		
-		new ModulePatchManager(currentAssembly).EnableAllPatches();
+		new InjectUniTaskPlayerLoopSystems().Enable();
 		
 		TestZStringLog(Logger);
 		TestVContainer();

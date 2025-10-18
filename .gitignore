@@ -401,5 +401,6 @@ FodyWeavers.xsd
 project/**/References/
 project/**/build/
 project/**/CopyToOutput/*.dll
+project/**/CopyToPatchers/**/*.dll
 .idea/
 .config/
