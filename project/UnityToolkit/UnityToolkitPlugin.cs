@@ -12,10 +12,10 @@ using VContainer.Unity;
 namespace UnityToolkit;
 
 /// <summary>
-/// Entry point for UnityToolkit mod framework.
+/// Entry point for UnityToolkit library mod.
 /// </summary>
 [BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.3.0")]
-[BepInDependency("com.SPT.core", MinimumDependencyVersion: "3.11.0")]
+[BepInDependency("com.SPT.core", MinimumDependencyVersion: "4.0.0")]
 public class UnityToolkitPlugin : BaseUnityPlugin
 {
 	private void Awake()
@@ -53,7 +53,7 @@ internal class TestLifetimeScope : LifetimeScope
 {
 	protected override void Configure(IContainerBuilder builder)
 	{
-		builder.Register(_ => BepInEx.Logging.Logger.CreateLogSource("UnityToolkit-Test"), Lifetime.Singleton);
+		builder.Register(_ => BepInEx.Logging.Logger.CreateLogSource("UnityToolkit-TestVContainer"), Lifetime.Singleton);
 		builder.RegisterEntryPoint<HelloWorldService>();
 	}
 }

@@ -402,3 +402,4 @@ project/**/References/
 project/**/build/
 project/**/CopyToOutput/*.dll
 .idea/
+.config/

@@ -12,14 +12,14 @@
     <AssemblyVersion>1.3.0</AssemblyVersion>
     <FileVersion>1.3.0</FileVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Configurations>Debug;Release;SPT-3.10 Release;SPT-3.11 Release</Configurations>
+    <Configurations>Debug;Release;SPT-3.10 Release;SPT-3.11 Release;SPT-4.0 Release</Configurations>
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   
   <!-- ONLY MODIFY THIS SECTION -->
   <PropertyGroup>
     <!-- Your SPT path -->
-    <SptDir>E:\SPT-3.11\</SptDir>
+    <SptDir>F:\SPT-3.11\</SptDir>
     
     <!--
       This is the path to where all your different SPT versions' assemblies are stored
@@ -51,7 +51,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SPT-3.10 Release|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>build\SPT-3.10\</OutputPath>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <SptVersion>310x</SptVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SPT-3.11 Release|AnyCPU' ">
@@ -59,6 +59,12 @@
     <OutputPath>build\SPT-3.11\</OutputPath>
     <TargetFramework>netstandard2.1</TargetFramework>
     <SptVersion>311x</SptVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SPT-4.0 Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>build\SPT-4.0\</OutputPath>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <SptVersion>400x</SptVersion>
   </PropertyGroup>
   
   <ItemGroup>
