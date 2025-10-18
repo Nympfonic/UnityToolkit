@@ -74,6 +74,12 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Compile Remove="build\**" />
+    <EmbeddedResource Remove="build\**" />
+    <None Remove="build\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>$(SptSharedAssembliesDir)$(SptVersion)\0Harmony.dll</HintPath>
     </Reference>
