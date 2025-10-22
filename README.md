@@ -11,7 +11,7 @@ and reduce the performance cost and memory allocation of their code even further
 2. Copy the assemblies from the release zip to where you store your project's assembly references
 3. Add all the assemblies as assembly references to your project
 4. Add `[BepInDependency("com.arys.unitytoolkit")]` attribute to your plugin class (I recommend you add a minimum version string to the attribute)
-5. You can now use *<span style="color:#0090AA">UniTask</span>*, *<span style="color:#B00090">Unity.Collections</span>*, *<span style="color:#AB1010">VContainer</span>* and *<span style="color:#009000">ZString</span>* in your mod
+5. You can now use *<span style="color:#0090AA">UniTask</span>*, *<span style="color:#B00090">Unity.Collections</span>*, *<span style="color:#AB1010">VContainer</span>*, *<span style="color:#D0A000">ZLinq</span>* and *<span style="color:#009000">ZString</span>* in your mod
 
 ## What features does this library provide?
 
