@@ -1,0 +1,64 @@
+<Project>
+  <PropertyGroup>
+    <Version>2.0.0</Version>
+    <AssemblyVersion>2.0.0</AssemblyVersion>
+    <FileVersion>2.0.0</FileVersion>
+    <Authors>Arys</Authors>
+    <Copyright>Arys</Copyright>
+    <LangVersion>latest</LangVersion>
+    <Configurations>Debug;SPT-3.10 Release;SPT-3.11 Release;SPT-4.0 Release</Configurations>
+    <Platforms>AnyCPU</Platforms>
+    <SolutionName>UnityToolkit</SolutionName>
+    <DistributionDir>$(MSBuildThisFileDirectory)dist\</DistributionDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <!-- Your SPT path -->
+    <SptDir>F:\SPT-4.0\</SptDir>
+
+    <!--
+      This is the path to where all your different SPT versions' assemblies are stored.
+      For example, my SPT Assemblies folder is laid out like so:
+        SPT Assemblies
+        ↳ 38x
+          ↳ ..
+          ↳ Assembly-CSharp.dll
+        ↳ 39x
+        ↳ 310x
+        ↳ 311x
+    -->
+    <SptSharedAssembliesDir>..\..\..\..\SPT Assemblies\</SptSharedAssembliesDir>
+
+    <!--
+      The SPT version to target.
+      This is used to find the corresponding SPT version's assembles in <SptSharedAssembliesDir>.
+      The value here is mostly a fallback value if you do not have a build configuration set up yet.
+    -->
+    <SptVersion Condition=" '$(SptVersion)' == '' ">400x</SptVersion>
+    <SptBepInExPluginsDir>$(SptDir)BepInEx\plugins\</SptBepInExPluginsDir>
+    <SptBepInExPatchersDir>$(SptDir)BepInEx\patchers\</SptBepInExPatchersDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>Build\Debug\</OutputPath>
+    <Optimize>false</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SPT-3.10 Release|AnyCPU' ">
+    <OutputPath>Build\SPT-3.10\</OutputPath>
+    <SptVersion>310x</SptVersion>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SPT-3.11 Release|AnyCPU' ">
+    <OutputPath>Build\SPT-3.11\</OutputPath>
+    <SptVersion>311x</SptVersion>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SPT-4.0 Release|AnyCPU' ">
+    <OutputPath>Build\SPT-4.0\</OutputPath>
+    <SptVersion>400x</SptVersion>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+</Project>

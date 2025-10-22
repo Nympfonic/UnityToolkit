@@ -1,77 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <Import Project="..\..\SharedProperties.props" />
+  
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>UnityToolkit</AssemblyName>
     <Description>A mod framework for SPT client modders</Description>
-    <Version>1.3.0</Version>
-    <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Authors>Arys</Authors>
-    <Copyright>Arys</Copyright>
-    <AssemblyVersion>1.3.0</AssemblyVersion>
-    <FileVersion>1.3.0</FileVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Configurations>Debug;Release;SPT-3.10 Release;SPT-3.11 Release;SPT-4.0 Release</Configurations>
-    <Platforms>AnyCPU</Platforms>
-  </PropertyGroup>
-  
-  <!-- ONLY MODIFY THIS SECTION -->
-  <PropertyGroup>
-    <!-- Your SPT path -->
-    <SptDir>F:\SPT-4.0\</SptDir>
-    
-    <!--
-      This is the path to where all your different SPT versions' assemblies are stored
-      For example, my SPT Assemblies folder is laid out like so:
-        SPT Assemblies
-        ↳ 38x
-          ↳ ..
-          ↳ Assembly-CSharp.dll
-        ↳ 39x
-        ↳ 310x
-        ↳ 311x
-    -->
-    <SptSharedAssembliesDir>..\..\..\..\SPT Assemblies\</SptSharedAssembliesDir>
-    
-    <!--
-      The SPT version to target.
-      This is used to find the corresponding SPT version's assembles in <SptSharedAssembliesDir>
-      The value here is mostly a fallback value if you do not have a build configuration set up yet
-    -->
-    <SptVersion Condition=" '$(SptVersion)' == '' ">400x</SptVersion>
   </PropertyGroup>
   
   <PropertyGroup>
     <CopyToOutputDir>$(MSBuildThisFileDirectory)CopyToOutput</CopyToOutputDir>
-    <CopyToPatchersDir>$(MSBuildThisFileDirectory)CopyToPatchers</CopyToPatchersDir>
-    <SptBepInExPluginsDir>$(SptDir)BepInEx\plugins\</SptBepInExPluginsDir>
-    <SptBepInExPatchersDir>$(SptDir)BepInEx\patchers\</SptBepInExPatchersDir>
   </PropertyGroup>
-
+  
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>build\debug\</OutputPath>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <SptVersion>400x</SptVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SPT-3.10 Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>build\SPT-3.10\</OutputPath>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <SptVersion>310x</SptVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SPT-3.11 Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>build\SPT-3.11\</OutputPath>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <SptVersion>311x</SptVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SPT-4.0 Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>build\SPT-4.0\</OutputPath>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <SptVersion>400x</SptVersion>
   </PropertyGroup>
   
   <ItemGroup>
@@ -90,12 +41,6 @@
     <Compile Remove="CopyToOutput\**" />
     <EmbeddedResource Remove="CopyToOutput\**" />
     <None Remove="CopyToOutput\**" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Compile Remove="CopyToPatchers\**" />
-    <EmbeddedResource Remove="CopyToPatchers\**" />
-    <None Remove="CopyToPatchers\**" />
   </ItemGroup>
   
   <ItemGroup>
@@ -141,12 +86,40 @@
     <Reference Include="VContainer">
       <HintPath>References\VContainer.dll</HintPath>
     </Reference>
+    <Reference Include="ZLinq">
+      <HintPath>References\ZLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="ZLinq.Unity">
+      <HintPath>References\ZLinq.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="ZLinq.Unity.UnityCollections">
+      <HintPath>References\ZLinq.Unity.UnityCollectoins.dll</HintPath>
+    </Reference>
     <Reference Include="ZString">
       <HintPath>References\ZString.dll</HintPath>
     </Reference>
   </ItemGroup>
   
+  <Target Name="GeneratePluginMetadata" BeforeTargets="BeforeCompile" Inputs="$(MSBuildAllProjects)" Outputs="$(ProjectDir)PluginMetadata.cs">    
+    <ItemGroup>
+      <PluginMetadataFilePath Include="$(ProjectDir)PluginMetadata.cs" />
+      <GeneratedText Include="// -- Auto-generated at build time --" />
+      <GeneratedText Include="// --------- DO NOT MODIFY ----------" />
+      <GeneratedText Include="%23pragma warning disable CS1591 // Missing XML comment for publicly visible type or member" />
+      <GeneratedText Include="namespace UnityToolkit%3B" />
+      <GeneratedText Include="public static class PluginMetadata" />
+      <GeneratedText Include="%7B" />
+      <GeneratedText Include='%09public const string VERSION = "$(Version)"%3B' />
+      <GeneratedText Include="%7D" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Include="@(PluginMetadataFilePath)" />
+      <FileWrites Include="@(PluginMetadataFilePath)" />
+    </ItemGroup>
+    <WriteLinesToFile File="@(PluginMetadataFilePath)" Lines="@(GeneratedText)" Overwrite="true" />
+  </Target>
+  
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if not exist &quot;$(SptBepInExPluginsDir)UnityToolkit&quot; (&#xA;    mkdir &quot;$(SptBepInExPluginsDir)UnityToolkit&quot;&#xA;)&#xA;&#xA;copy &quot;$(TargetPath)&quot; &quot;$(SptBepInExPluginsDir)UnityToolkit\$(TargetFileName)&quot;&#xA;copy &quot;$(ProjectDir)References\*.dll&quot; &quot;$(SptBepInExPluginsDir)UnityToolkit&quot;&#xA;xcopy /y /s &quot;$(CopyToOutputDir)&quot; &quot;$(SptBepInExPluginsDir)UnityToolkit&quot;&#xA;xcopy /y /s &quot;$(CopyToPatchersDir)&quot; &quot;$(SptBepInExPatchersDir)&quot;&#xA;&#xA;if &quot;$(ConfigurationName)&quot;==&quot;Debug&quot; (&#xA;    if exist &quot;$(TargetDir)$(TargetName).pdb&quot; (&#xA;        copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(SptBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot;&#xA;    ) else (&#xA;        echo Debug symbols not found!&#xA;    )&#xA;) else (&#xA;    if exist &quot;$(SptBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot; (&#xA;        del &quot;$(SptBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot;&#xA;    )&#xA;)&#xA;&#xA;if not &quot;$(ConfigurationName)&quot;==&quot;Debug&quot; (&#xA;    cd /D &quot;$(SptBepInExPluginsDir)..\..\&quot;&#xA;    &quot;C:\Program Files\7-Zip\7z.exe&quot; a &quot;$(TargetDir)$(ProjectName)-v$(Version).7z&quot; &quot;BepInEx\plugins\UnityToolkit\*&quot;&#xA;    &quot;C:\Program Files\7-Zip\7z.exe&quot; a &quot;$(TargetDir)$(ProjectName)-v$(Version).7z&quot; &quot;BepInEx\patchers\FixPluginTypesSerialization\*&quot;&#xA;)" />
+    <Exec Command="if not exist &quot;$(SptBepInExPluginsDir)UnityToolkit&quot; (&#xA;    mkdir &quot;$(SptBepInExPluginsDir)UnityToolkit&quot;&#xA;)&#xA;&#xA;copy &quot;$(TargetPath)&quot; &quot;$(SptBepInExPluginsDir)UnityToolkit\$(TargetFileName)&quot;&#xA;copy &quot;$(ProjectDir)References\*.dll&quot; &quot;$(SptBepInExPluginsDir)UnityToolkit&quot;&#xA;xcopy /y /s &quot;$(CopyToOutputDir)&quot; &quot;$(SptBepInExPluginsDir)UnityToolkit&quot;&#xA;&#xA;if &quot;$(ConfigurationName)&quot;==&quot;Debug&quot; (&#xA;    if exist &quot;$(TargetDir)$(TargetName).pdb&quot; (&#xA;        copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(SptBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot;&#xA;    ) else (&#xA;        echo Debug symbols not found!&#xA;    )&#xA;) else (&#xA;    if exist &quot;$(SptBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot; (&#xA;        del &quot;$(SptBepInExPluginsDir)UnityToolkit\$(TargetName).pdb&quot;&#xA;    )&#xA;)&#xA;&#xA;if not &quot;$(ConfigurationName)&quot;==&quot;Debug&quot; (&#xA;    cd /D &quot;$(SptBepInExPluginsDir)..\..\&quot;&#xA;    &quot;C:\Program Files\7-Zip\7z.exe&quot; a &quot;$(DistributionDir)$(SolutionName)-v$(Version).7z&quot; &quot;BepInEx\plugins\UnityToolkit\*&quot;&#xA;)" />
   </Target>
 </Project>

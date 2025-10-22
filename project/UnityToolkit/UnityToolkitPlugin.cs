@@ -1,11 +1,13 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
 using Cysharp.Text;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using UnityToolkit.Patches;
 using UnityToolkit.Utils;
+using ZLinq;
 
 namespace UnityToolkit;
 
@@ -14,7 +16,7 @@ namespace UnityToolkit;
 /// <summary>
 /// Entry point for UnityToolkit library mod.
 /// </summary>
-[BepInPlugin("com.Arys.UnityToolkit", "Unity Toolkit", "1.3.0")]
+[BepInPlugin("com.arys.unitytoolkit", "Unity Toolkit", PluginMetadata.VERSION)]
 [BepInDependency("com.SPT.core", MinimumDependencyVersion: "4.0.0")]
 public class UnityToolkitPlugin : BaseUnityPlugin
 {
@@ -28,6 +30,7 @@ public class UnityToolkitPlugin : BaseUnityPlugin
 		new InjectPlayerLoopSystems().Enable();
 		
 		TestZStringLog(Logger);
+		TestZLinq(Logger);
 	}
 	
 	[Conditional("DEBUG")]
@@ -37,5 +40,13 @@ public class UnityToolkitPlugin : BaseUnityPlugin
 		sb.AppendLine("This is a test string to verify ZString works.");
 		sb.AppendFormat("{0} is the answer to life!", 42);
 		logger.LogInfo(sb.ToString());
+	}
+
+	[Conditional("DEBUG")]
+	private static void TestZLinq(ManualLogSource logger)
+	{
+		List<int> numbers = [0, 4, 2, 8, 9, 5, 1, 6, 7, 3, 5];
+		int numberOfTimes5Appears = numbers.AsValueEnumerable().Where(i => i == 5).Count();
+		logger.LogInfo($"Number of times 5 appears is {numberOfTimes5Appears}");
 	}
 }
