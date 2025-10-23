@@ -2,7 +2,6 @@ using CustomPlayerLoopSystem;
 using HarmonyLib;
 using JetBrains.Annotations;
 using SPT.Reflection.Patching;
-using System;
 using System.Reflection;
 using UnityEngine.LowLevel;
 #if DEBUG
@@ -31,23 +30,15 @@ public class InjectPlayerLoopSystems : ModulePatch
 	private static void PatchPostfix()
 	{
 		InjectUniTaskPlayerLoopSystems();
-		InjectVContainerPlayerLoopSystems();
+#if DEBUG
+		TestVContainer();
+#endif
 	}
 
 	private static void InjectUniTaskPlayerLoopSystems()
 	{
 		PlayerLoopSystem playerLoop = PlayerLoop.GetCurrentPlayerLoop();
 		Cysharp.Threading.Tasks.PlayerLoopHelper.Initialize(ref playerLoop);
-	}
-
-	private static void InjectVContainerPlayerLoopSystems()
-	{
-		Type playerLoopHelperType = AccessTools.TypeByName(
-			"VContainer.Unity.PlayerLoopHelper, VContainer, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
-		AccessTools.Method(playerLoopHelperType, "EnsureInitialized").Invoke(null, null);
-#if DEBUG
-		TestVContainer();
-#endif
 	}
 
 #if DEBUG
