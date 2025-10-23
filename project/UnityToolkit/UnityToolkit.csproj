@@ -100,9 +100,9 @@
     </Reference>
   </ItemGroup>
   
-  <Target Name="GeneratePluginMetadata" BeforeTargets="BeforeCompile" Inputs="$(MSBuildAllProjects)" Outputs="$(ProjectDir)PluginMetadata.cs">    
+  <Target Name="GeneratePluginMetadata" BeforeTargets="BeforeCompile" Inputs="$(MSBuildAllProjects)" Outputs="$(IntermediateOutputPath)PluginMetadata.cs">    
     <ItemGroup>
-      <PluginMetadataFilePath Include="$(ProjectDir)PluginMetadata.cs" />
+      <PluginMetadataFilePath Include="$(IntermediateOutputPath)PluginMetadata.cs" />
       <GeneratedText Include="// -- Auto-generated at build time --" />
       <GeneratedText Include="// --------- DO NOT MODIFY ----------" />
       <GeneratedText Include="%23pragma warning disable CS1591 // Missing XML comment for publicly visible type or member" />
@@ -114,7 +114,6 @@
     </ItemGroup>
     <ItemGroup>
       <Compile Include="@(PluginMetadataFilePath)" />
-      <FileWrites Include="@(PluginMetadataFilePath)" />
     </ItemGroup>
     <WriteLinesToFile File="@(PluginMetadataFilePath)" Lines="@(GeneratedText)" Overwrite="true" />
   </Target>
