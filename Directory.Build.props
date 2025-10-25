@@ -10,6 +10,7 @@
     <Platforms>AnyCPU</Platforms>
     <SolutionName>UnityToolkit</SolutionName>
     <DistributionDir>$(MSBuildThisFileDirectory)dist\</DistributionDir>
+    <ReleaseArchive>$(DistributionDir)$(SolutionName)-v$(Version).7z</ReleaseArchive>
   </PropertyGroup>
   <PropertyGroup>
     <!-- Your SPT path -->

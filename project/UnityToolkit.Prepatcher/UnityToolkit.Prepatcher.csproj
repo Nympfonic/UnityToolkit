@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\SharedProperties.props" />
   <PropertyGroup>
     <CopyToOutputDir>$(MSBuildThisFileDirectory)CopyToOutput</CopyToOutputDir>
     <ProjectGuid>{B876D9D8-DF82-45DC-8B32-92BA269A8190}</ProjectGuid>
@@ -13,7 +12,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Patcher.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs"/>
+<!--    <Compile Include="Properties\AssemblyInfo.cs"/>-->
   </ItemGroup>
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -49,20 +48,20 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
           Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
-  <PropertyGroup>
-    <PostBuildEvent>if not exist "$(SptBepInExPatchersDir)UnityToolkit" (
-    mkdir "$(SptBepInExPatchersDir)UnityToolkit"
-)
+  <Target Name="PostBuild" AfterTargets="Build;Rebuild">
+    <Exec Command="if not exist &quot;$(SptBepInExPatchersDir)UnityToolkit&quot; (
+    mkdir &quot;$(SptBepInExPatchersDir)UnityToolkit&quot;
+    )
 
-copy "$(TargetPath)" "$(SptBepInExPatchersDir)UnityToolkit\$(TargetName).dll"
-xcopy /y /s "$(CopyToOutputDir)" "$(SptBepInExPatchersDir)"
-
-if not "$(ConfigurationName)"=="Debug" (
-    cd /D "$(SptBepInExPatchersDir)..\..\"
-    "C:\Program Files\7-Zip\7z.exe" a "$(DistributionDir)$(SolutionName)-v$(Version).7z" "BepInEx\patchers\UnityToolkit\*"
-    "C:\Program Files\7-Zip\7z.exe" a "$(DistributionDir)$(SolutionName)-v$(Version).7z" "BepInEx\patchers\FixPluginTypesSerialization\*"
-)</PostBuildEvent>
-  </PropertyGroup>
+    copy &quot;$(TargetPath)&quot; &quot;$(SptBepInExPatchersDir)UnityToolkit\$(TargetName).dll&quot;
+    xcopy /y /s &quot;$(CopyToOutputDir)&quot; &quot;$(SptBepInExPatchersDir)&quot;" />
+  </Target>
+  <Target Name="CreateReleaseZip" AfterTargets="PostBuild">
+    <Exec Command="if not &quot;$(ConfigurationName)&quot;==&quot;Debug&quot; (
+    cd /D &quot;$(SptBepInExPatchersDir)..\..\&quot;
+    &quot;C:\Program Files\7-Zip\7z.exe&quot; a &quot;$(ReleaseArchive)&quot; &quot;BepInEx\patchers\UnityToolkit\*&quot;
+    )" />
+  </Target>
   <Import Project="..\..\packages\BepInEx.Core.5.4.21\build\BepInEx.Core.targets" Condition="Exists('..\..\packages\BepInEx.Core.5.4.21\build\BepInEx.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -70,12 +69,4 @@ if not "$(ConfigurationName)"=="Debug" (
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\BepInEx.Core.5.4.21\build\BepInEx.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\BepInEx.Core.5.4.21\build\BepInEx.Core.targets'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-
 </Project>
